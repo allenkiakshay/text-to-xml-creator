@@ -1,7 +1,8 @@
 import xml.etree.ElementTree as xml
+import datetime
 
-f1name = "file 1 path" # enter text file path
-f2name = "file 2 path" # enter text file path
+f1name = "./segments"
+f2name = "./text"
 def open_transcript1(f1name):
     with open(f1name, "r") as f1:
         transcript1 = f1.read()
@@ -74,22 +75,26 @@ def create_xml(xmlfile):
     
     # tree = xml.ElementTree(root)
     with open(xmlfile, "w", encoding="utf-8") as f:
+        
         for data in transcript1:
             if search == data:
+                f.write("<?xml version='1.0' encoding='UTF-8'?>\n")
                 f.write("<transcript lang='hindi'>\n")
-                f.write("<line timestamp='0.0' speaker='speaker_1'>\n")
-                f.write("<word timestamp='0.0' is_valid='true'>\n")
-                f.write("</line>\n")
+                # f.write("<line timestamp='0.0' speaker='speaker_1'>\n")
+                # f.write("<word timestamp='0.0' is_valid='true'>\n")
+                # f.write("</line>\n")
                 seg = transcript1_seprate(data)
                 for i in seg:
                     b = []
                     time = time_split(i)
                     try:
                         time = time[1]
+                        time = int(float(time))
+                        time = str(datetime.timedelta(seconds = time))
                         b.append(time)
                     except IndexError:
                         pass
-                    f.write(f"<line timestamp={time} speaker='speaker_1'> \n")
+                    f.write(f"<line timestamp='{time}' speaker='speaker_1'> \n")
                     te = id1_split(i)
                     te = te[0]
                     for data1 in transcript2:
@@ -102,11 +107,10 @@ def create_xml(xmlfile):
                                 for k in word:
                                     k = k.encode('utf-8')
                                     k = k.decode()
-                                    f.write(f"<word timestamp=''>{k} </write>\n")
+                                    f.write(f"<word timestamp=''>{k} </word>\n")
                             
                     f.write("</line>\n")
                 f.write("</transcript>")
-                print("yes")
 
 
 for data in transcript1:
