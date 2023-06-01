@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as xml
 
-f1name = "./segments"
-f2name = "./text"
+f1name = "file 1 path" # enter text file path
+f2name = "file 2 path" # enter text file path
 def open_transcript1(f1name):
     with open(f1name, "r") as f1:
         transcript1 = f1.read()
