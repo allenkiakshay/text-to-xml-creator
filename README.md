@@ -1,3 +1,3 @@
 # text-to-xml-creator
-Change text file to xml file python code 
-Mention
+### Mention timestamp file path in variable f1name
+### Mention text file path in variable f2name
